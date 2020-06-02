@@ -1,25 +1,28 @@
-import React from 'react';
+import React from 'react'; 
 import logo from './logo.svg';
 import './App.css';
+import {Link} from  'react-router-dom';
+import {BrowserRouter as Router, Switch, Route } from  'react-router-dom';
+import InterviewsPage from './InterviewsPage';
+import InterviewsForm from './InterviewsForm';
+import InterviewsShow from './InterviewsShow';
+import InterviewsEdit from './InterviewsEdit';
+import InterviewsDelete from './InterviewsDelete';
+
 
 function App() {
   return (
+    <Router>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Route path="/interviews" exact component={InterviewsPage} />
+       	{ /* step -1 called the link interviews which is connected to component InterviewPage */ }
+        <Route path="/interviews/new" exact component={InterviewsForm} />
+        <Route path="/interviews/show/:id" exact component={InterviewsShow} />
+        <Route path="/interviews/edit/:id" exact component={InterviewsEdit} />
+        <Route path="/interviews/delete/:id" exact component={InterviewsDelete} />
+
     </div>
+    </Router>
   );
 }
 
