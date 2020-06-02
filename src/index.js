@@ -4,9 +4,29 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import {composeWithDevTools} from 'redux-devtools-extension';
+
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './rootReducer';
+import {Provider} from 'react-redux';
+import {BrowserRouter as Router, Switch, Route } from  'react-router-dom';
+
+
+const store = createStore(
+		rootReducer,
+		composeWithDevTools(
+				applyMiddleware(thunk)
+			)
+	);
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+  <Router>
+	  <Provider store={store}>
+	    <App />
+	  </Provider>
+  </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
