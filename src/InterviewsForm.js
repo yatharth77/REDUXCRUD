@@ -1,23 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {saveInterview} from './actions';
+import {useSelector, useDispatch} from 'react-redux';
 
-class InterviewsForm extends React.Component {
-
-	handleSubmit = (e) => {
+const InterviewsForm = (match) =>{
+    const dispatch = useDispatch()
+	const handleSubmit = (e) => {
 		e.preventDefault(); 
 		const data = new FormData(e.target);
     	var json_object   = {}
     	data.forEach((value, key) => {json_object[key] = value});
-    	this.props.saveInterview(json_object);
+
+    	dispatch(saveInterview(json_object, match.match.params.id));
+
     	window.location = "/interviews";
 	}
 
-	render() {
-		console.log("inside render")
-
 		return (
-			<form className="section" onSubmit={this.handleSubmit}>
+			<form className="section" onSubmit={handleSubmit}>
                     <div className="field">
                         <p className="control has-icons-left has-icons-right">
                             <label>User Name:</label>
@@ -69,5 +69,5 @@ class InterviewsForm extends React.Component {
             </form>
 		);
 	}
-}
-export default connect(null, {saveInterview})(InterviewsForm) ;
+
+export default InterviewsForm;

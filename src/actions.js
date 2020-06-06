@@ -1,8 +1,14 @@
 export const SET_INTERVIEWS = 'SET_INTERVIEWS';
+export const DELETE_INTERVIEW = 'DELETE_INTERVIEW';
+export const UPDATE_INTERVIEWS = 'UPDATE_INTERVIEWS';
+export const GET_INTERVIEWS = 'GET_INTERVIEWS';
+export const SAVE_INTERVIEWS = 'SAVE_INTERVIEWS';
 
-function handleResponse(respnse){
-	return respnse.data.json()
-}
+
+
+// function handleResponse(respnse){
+// 	return respnse.data.json()
+// }
 
 export function setInterviews(interviews){
 	return{
@@ -10,6 +16,36 @@ export function setInterviews(interviews){
 		interviews
 	}
 }
+
+export function setsaveInterview(interviews){
+	return{
+		type: SAVE_INTERVIEWS,
+		interviews
+	}
+}
+export function setgetInterview(interviews){
+	return{
+		type: GET_INTERVIEWS,
+		interviews
+	}
+}
+export function setdeleteInterview(interviews){
+	return{
+		type: DELETE_INTERVIEW,
+		interviews
+	}
+}
+
+export function setupdateInterview(interviews){
+	return{
+		type: UPDATE_INTERVIEWS,
+		interviews
+	}
+}
+
+
+
+
 
 export function saveInterview(data){
 	console.log("inside save interview", data);
@@ -21,7 +57,9 @@ export function saveInterview(data){
             headers: {
                 'Content-Type': 'application/json'
             }
-		}).then(handleResponse);
+		})
+		.then(res => res.json)
+		.then(data => dispatch(setsaveInterview(data.data)));
 	}
 }
 
@@ -34,7 +72,9 @@ export function deleteInterview(interview_id){
             headers: {
                 'Content-Type': 'application/json'
             }
-		}).then(handleResponse);
+		})
+		.then(res => res.json)
+		.then(data => dispatch(setdeleteInterview(data.data)));
 	}
 }
 
@@ -50,7 +90,10 @@ export function updateInterview(data, interview_id){
             headers: {
                 'Content-Type': 'application/json'
             }
-		}).then(handleResponse);
+		})
+		.then(res => res.json)
+		.then(data => dispatch(setupdateInterview(data.data)));
+
 	}
 }
 
@@ -69,6 +112,6 @@ export function fetchInterviewById(interview_id){
 	return dispatch => {
 		fetch("http://localhost:3001/api/v1/interviews/" + interview_id)
 			.then(res => res.json())
-			.then(data => dispatch(setInterviews(data.data)));
+			.then(data => dispatch(setgetInterview(data.data)));
 	}
 }

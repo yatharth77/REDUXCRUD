@@ -4,16 +4,23 @@ import {Link} from  'react-router-dom';
 import {connect} from 'react-redux';
 import {deleteInterview} from './actions'
 import PropTypes from 'prop-types';
+import {useSelector, useDispatch} from 'react-redux';
 
-class InterviewsDelete extends React.Component{
-  componentDidMount(){
-    this.props.deleteInterview(this.props.match.params.id);
+const InterviewsDelete = (match) =>{
+
+	const interviews = useSelector(
+        state => state.interviews
+    );
+
+    const dispatch = useDispatch()
+    
+    useEffect(() => {
+        dispatch(deleteInterview(match.match.params.id))
+    }, [])
     window.location = "/interviews";
-  }
-  render(){
+    
     return (
         <div></div>
       );
 }
-}
-export default connect(null, {deleteInterview})(InterviewsDelete);
+export default InterviewsDelete;
